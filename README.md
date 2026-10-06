@@ -204,39 +204,26 @@ Windows Security Event ID 4688 records process creation.
 
 
 
-Process activity associated with the test account included:
+## Endpoint Process Investigation
 
+Windows Event ID 4688 was used to investigate process creation and establish parent-child relationships.
 
+Observed process activity:
 
 ```text
-
 cmd.exe
-
-└── whoami.exe
-
-
-
-cmd.exe
-
-└── HOSTNAME.EXE
-
-
-
-cmd.exe
-
+├── whoami.exe
+├── HOSTNAME.EXE
 └── ipconfig.exe
 
-
-
 runas.exe
-
 └── powershell.exe
-
-&#x20;   └── conhost.exe
-
+    └── conhost.exe
 ```
 
+The discovery commands (`whoami`, `hostname`, and `ipconfig`) are commonly used by both administrators and attackers. Because of that, the activity was classified as **suspicious / requiring further investigation**, rather than automatically considered malicious.
 
+The investigation also examined PowerShell execution and command-line auditing to determine whether additional suspicious behavior was present.
 
 \### Discovery Activity
 
